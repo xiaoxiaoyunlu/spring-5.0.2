@@ -84,6 +84,12 @@ public abstract class HttpAccessor {
 	 * @see ClientHttpRequestFactory#createRequest(URI, HttpMethod)
 	 */
 	protected ClientHttpRequest createRequest(URI url, HttpMethod method) throws IOException {
+		// 获取工厂，创建request
+		// ClientHttpRequestFactory
+		//  1. JDK HttpURLConnection 的 SimpleClientHttpRequestFactory
+		//  2. 基于 Apache HttpComponents Client 的 HttpComponentsClientHttpRequestFactory
+		//  3. 基于 OkHttp3的OkHttp3ClientHttpRequestFactory
+		//  4. 基于 Netty4 的 Netty4ClientHttpRequestFactory
 		ClientHttpRequest request = getRequestFactory().createRequest(url, method);
 		if (logger.isDebugEnabled()) {
 			logger.debug("Created " + method.name() + " request for \"" + url + "\"");

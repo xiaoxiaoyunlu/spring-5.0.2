@@ -24,6 +24,7 @@ import java.lang.annotation.Target;
 /**
  * Marks a method (typically a JavaBean setter method) as being 'required': that is,
  * the setter method must be configured to be dependency-injected with a value.
+ * 保证一个setter方法的时候，依赖注入必须有值
  *
  * <p>Please do consult the javadoc for the {@link RequiredAnnotationBeanPostProcessor}
  * class (which, by default, checks for the presence of this annotation).

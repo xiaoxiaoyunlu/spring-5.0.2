@@ -488,7 +488,9 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 	public void put(String url, @Nullable Object request, Object... uriVariables)
 			throws RestClientException {
 
+		// 构建回调函数
 		RequestCallback requestCallback = httpEntityCallback(request);
+		// 真正调用的是 doExecute
 		execute(url, HttpMethod.PUT, requestCallback, null, uriVariables);
 	}
 
@@ -677,6 +679,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 	public <T> T execute(String url, HttpMethod method, @Nullable RequestCallback requestCallback,
 			@Nullable ResponseExtractor<T> responseExtractor, Object... uriVariables) throws RestClientException {
 
+		// 组装真正的url
 		URI expanded = getUriTemplateHandler().expand(url, uriVariables);
 		return doExecute(expanded, method, requestCallback, responseExtractor);
 	}
@@ -717,6 +720,7 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 		Assert.notNull(method, "'method' must not be null");
 		ClientHttpResponse response = null;
 		try {
+			// 核心代码，创建 ClientHttpResquest,内部使用工厂类
 			ClientHttpRequest request = createRequest(url, method);
 			if (requestCallback != null) {
 				requestCallback.doWithRequest(request);
